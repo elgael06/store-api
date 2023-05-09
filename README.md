@@ -18,6 +18,9 @@ $ yarn run start:dev
 $ yarn run start:prod
 ```
 
+## show the swager api uri:
+http://localhost:8080/api/
+
 ## Test
 
 ```bash
