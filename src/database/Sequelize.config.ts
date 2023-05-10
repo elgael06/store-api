@@ -1,19 +1,28 @@
 import { SequelizeModule } from '@nestjs/sequelize';
-import config from '../config';
 import { Module } from '@nestjs/common';
-
-const { ...rest } = config();
+import { Users } from './models/users.entity';
+import { ConfigModule } from '@nestjs/config';
+import { Auth } from './models/auth.entity';
 
 @Module({
   imports: [
+    ConfigModule.forRoot(),
     SequelizeModule.forRoot({
       dialect: 'mysql',
-      host: rest.DB_DIALECT,
-      port: parseInt(rest.DB_PORT),
-      username: rest.DB_USERNAME,
-      password: rest.DB_PASSWORD,
-      database: rest.DB_DATABASE,
-      models: [],
+      host: process.env.DB_HOST,
+      port: parseInt(process.env.DB_PORT),
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      models: [Users, Auth], //'./**/**.entity{.ts,.js}'
+      autoLoadModels: true,
+      synchronize: true,
+      ssl: true,
+      dialectOptions: {
+        ssl: {
+          require: true,
+        },
+      },
     }),
   ],
   controllers: [],
