@@ -17,6 +17,7 @@ import { Auth } from './models/auth.entity';
       models: [Users, Auth], //'./**/**.entity{.ts,.js}'
       autoLoadModels: true,
       synchronize: true,
+      repositoryMode: true,
       ssl: true,
       dialectOptions: {
         ssl: {

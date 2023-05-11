@@ -1,8 +1,20 @@
-import { Column, Model, Table, BelongsTo } from 'sequelize-typescript';
+import {
+  Column,
+  Model,
+  Table,
+  BelongsTo,
+  IsUUID,
+  PrimaryKey,
+} from 'sequelize-typescript';
 import { Users } from './users.entity';
 
 @Table
 export class Auth extends Model {
+  @IsUUID(4)
+  @PrimaryKey
+  @Column
+  id: string;
+
   @Column
   email: string;
   @Column
