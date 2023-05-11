@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { UserCrearteDTO } from '../../core/interface/DTO/UserCrearte.DTO';
 import { UsersService } from './users.service';
@@ -24,6 +24,36 @@ export class UsersController {
   async findAll() {
     try {
       return await this.userService.findAll();
+    } catch (error) {
+      return {
+        isError: true,
+        name: error?.name,
+        error: error?.errors,
+      };
+    }
+  }
+
+  @Get(':id')
+  async findId(@Param('id') id: string) {
+    try {
+      return await this.userService.findOne(id);
+    } catch (error) {
+      return {
+        isError: true,
+        name: error?.name,
+        error: error?.errors,
+      };
+    }
+  }
+
+  @Delete(':id')
+  async deleteId(@Param('id') id: string) {
+    try {
+      await this.userService.remove(id);
+      return {
+        isError: false,
+        message: `delete complete: ${id}`,
+      };
     } catch (error) {
       return {
         isError: true,

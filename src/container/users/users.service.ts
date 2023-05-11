@@ -33,10 +33,11 @@ export class UsersService {
       createdAt: new Date(),
       updatedAt: new Date(),
     });
-    await this.repoAuth.create({
+    const auth = await this.repoAuth.create({
       id: uuid().toString(),
       idUser: newUSer.id,
       password: criptoPass,
+      rolType: values.rolType,
       createdAt: new Date(),
       updatedAt: new Date(),
     });
@@ -46,23 +47,53 @@ export class UsersService {
       id: newUSer.id,
       email: values.email,
       isActive: newUSer.isActive,
+      rolType: auth.rolType,
       createdAt: newUSer.createdAt,
       updateAt: newUSer.updatedAt,
     });
   }
 
   async findAll(): Promise<UserResponse[]> {
-    return (await this.repoUser.findAll()).map(usersMapper);
+    return (
+      await this.repoUser.findAll({
+        include: [{ all: true, nested: true }],
+        mapToModel: true,
+      })
+    ).map((item) => {
+      const rolType = item.auth.rolType;
+      return usersMapper({
+        id: item.id,
+        firstName: item.firstName,
+        lastName: item.lastName,
+        email: item.email,
+        isActive: item.isActive,
+        rolType: rolType,
+        updateAt: item.updatedAt,
+        createdAt: item.createdAt,
+      });
+    });
   }
 
   async findOne(id: string): Promise<UserResponse> {
-    return usersMapper(
-      await this.repoUser.findOne({
-        where: {
-          id,
-        },
-      }),
-    );
+    const item = await this.repoUser.findOne({
+      where: {
+        id,
+      },
+      include: [{ all: true, nested: true }],
+      mapToModel: true,
+    });
+    const rolType = item.auth.rolType;
+
+    return usersMapper({
+      id: item.id,
+      firstName: item.firstName,
+      lastName: item.lastName,
+      email: item.email,
+      isActive: item.isActive,
+      rolType: rolType,
+      updateAt: item.updatedAt,
+      createdAt: item.createdAt,
+    });
   }
 
   async remove(id: string): Promise<void> {
@@ -70,7 +101,10 @@ export class UsersService {
       where: {
         id,
       },
+      include: [{ all: true, nested: true }],
+      mapToModel: true,
     });
+    await userDelete.auth.destroy();
     await userDelete.destroy();
   }
 }

@@ -18,12 +18,12 @@ import { Auth } from './models/auth.entity';
       autoLoadModels: true,
       synchronize: true,
       repositoryMode: true,
-      ssl: true,
-      dialectOptions: {
-        ssl: {
-          require: true,
-        },
-      },
+      // ssl: true,
+      // dialectOptions: {
+      //   ssl: {
+      //     require: true,
+      //   },
+      // },
     }),
   ],
   controllers: [],

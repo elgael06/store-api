@@ -7,6 +7,7 @@ import {
   ForeignKey,
 } from 'sequelize-typescript';
 import { Users } from './users.entity';
+import { Role } from 'src/core/enum/Role';
 
 @Table
 export class Auth extends Model {
@@ -14,6 +15,9 @@ export class Auth extends Model {
   @PrimaryKey
   @Column
   id: string;
+
+  @Column({ allowNull: true })
+  rolType: Role;
 
   @ForeignKey(() => Users)
   idUser: string;
