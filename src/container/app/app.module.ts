@@ -5,7 +5,6 @@ import { AppController } from './app.controller';
 import { AuthModule } from '../auth/auth.module';
 import { UsersModule } from '../users/users.module';
 import { SequelizeConfModule } from 'src/database/Sequelize.config';
-import { UsersRepositoryService } from './../../repository/usersrepository.service';
 
 @Module({
   imports: [
@@ -15,6 +14,7 @@ import { UsersRepositoryService } from './../../repository/usersrepository.servi
     UsersModule,
   ],
   controllers: [AppController],
-  providers: [UsersRepositoryService, AppService],
+  providers: [AppService],
+  exports: [],
 })
 export class AppModule {}

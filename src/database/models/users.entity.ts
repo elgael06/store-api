@@ -2,9 +2,9 @@ import {
   Model,
   Column,
   Table,
-  ForeignKey,
   PrimaryKey,
   IsUUID,
+  HasOne,
 } from 'sequelize-typescript';
 import { Auth } from './auth.entity';
 
@@ -25,9 +25,11 @@ export class Users extends Model {
     allowNull: true,
     unique: true,
   })
-  @ForeignKey(() => Auth)
   email: string;
 
   @Column({ defaultValue: true })
   isActive: boolean;
+
+  @HasOne(() => Auth, 'idUser')
+  auth: Auth;
 }

@@ -2,9 +2,9 @@ import {
   Column,
   Model,
   Table,
-  BelongsTo,
   IsUUID,
   PrimaryKey,
+  ForeignKey,
 } from 'sequelize-typescript';
 import { Users } from './users.entity';
 
@@ -15,11 +15,9 @@ export class Auth extends Model {
   @Column
   id: string;
 
-  @Column
-  email: string;
+  @ForeignKey(() => Users)
+  idUser: string;
+
   @Column
   password: string;
-
-  @BelongsTo(() => Users, 'email')
-  user: Users;
 }
