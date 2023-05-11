@@ -11,3 +11,7 @@ services:
       MYSQL_ROOT_PASSWORD: Algn1016081
     ports: 
       - 3306:3306
+  api:
+    image:  alpine:3.16
+    
+    command:  
