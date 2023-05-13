@@ -1,31 +1,28 @@
 import { v4 as uuid } from 'uuid';
 import { Injectable } from '@nestjs/common';
+import { Sequelize } from 'sequelize-typescript';
 import { InjectConnection } from '@nestjs/sequelize';
-import { Auth } from 'src/database/models/auth.entity';
 import { usersMapper } from 'src/core/util/usersMapper';
 import { encrypting } from 'src/core/util/createCripto';
-import { Users } from 'src/database/models/users.entity';
-import { Repository, Sequelize } from 'sequelize-typescript';
 import { UserResponse } from 'src/core/interface/UserResponse';
 import { UserCrearteDTO } from 'src/core/interface/DTO/UserCrearte.DTO';
+import { Contenxt } from 'src/data/Context';
 
 @Injectable()
 export class UsersService {
-  // repositories
-  repoUser: Repository<Users>;
-  repoAuth: Repository<Auth>;
+  // context repositories
+  readonly _context: Contenxt;
 
   constructor(
     @InjectConnection()
     private sequelize: Sequelize,
   ) {
-    this.repoUser = this.sequelize.getRepository(Users);
-    this.repoAuth = this.sequelize.getRepository(Auth);
+    this._context = new Contenxt(sequelize);
   }
 
   async create(values: UserCrearteDTO): Promise<UserResponse> {
     const criptoPass = await encrypting(values.password);
-    const newUSer = await this.repoUser.create({
+    const newUSer = await this._context.userRepo.create({
       id: uuid().toString(),
       firstName: values.userName,
       lastName: values.lastName,
@@ -33,7 +30,7 @@ export class UsersService {
       createdAt: new Date(),
       updatedAt: new Date(),
     });
-    const auth = await this.repoAuth.create({
+    const auth = await this._context.authRepo.create({
       id: uuid().toString(),
       idUser: newUSer.id,
       password: criptoPass,
@@ -55,7 +52,7 @@ export class UsersService {
 
   async findAll(): Promise<UserResponse[]> {
     return (
-      await this.repoUser.findAll({
+      await this._context.userRepo.findAll({
         include: [{ all: true, nested: true }],
         mapToModel: true,
       })
@@ -75,7 +72,7 @@ export class UsersService {
   }
 
   async findOne(id: string): Promise<UserResponse> {
-    const item = await this.repoUser.findOne({
+    const item = await this._context.userRepo.findOne({
       where: {
         id,
       },
@@ -97,7 +94,7 @@ export class UsersService {
   }
 
   async remove(id: string): Promise<void> {
-    const userDelete = await this.repoUser.findOne({
+    const userDelete = await this._context.userRepo.findOne({
       where: {
         id,
       },

@@ -8,7 +8,7 @@ import { AppController } from './app.controller';
 import { AuthModule } from 'src/domains/auth/auth.module';
 import { UsersModule } from 'src/domains/users/users.module';
 // database
-import { SequelizeConfModule } from 'src/database/Sequelize.config';
+import { SequelizeConfModule } from 'src/data/Sequelize.config';
 
 @Module({
   imports: [
