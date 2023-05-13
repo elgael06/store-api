@@ -1,5 +1,5 @@
 import { NestFactory } from '@nestjs/core';
-import { AppModule } from './container/app/app.module';
+import { AppModule } from 'src/domains/app/app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 const PORT = process.env.PORT ? parseInt(process.env.PORT) : 3000;

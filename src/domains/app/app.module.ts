@@ -2,10 +2,12 @@ import { Module } from '@nestjs/common';
 import { AppService } from './app.service';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
-import { AppController } from './app.controller';
-import { AuthModule } from '../auth/auth.module';
 import { TerminusModule } from '@nestjs/terminus';
-import { UsersModule } from '../users/users.module';
+// modules
+import { AppController } from './app.controller';
+import { AuthModule } from 'src/domains/auth/auth.module';
+import { UsersModule } from 'src/domains/users/users.module';
+// database
 import { SequelizeConfModule } from 'src/database/Sequelize.config';
 
 @Module({
