@@ -1,31 +1,17 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import {
-  UserLoginDTO,
-  UserSingDTO,
-} from 'src/core/interface/DTO/UserSesion.DTO';
-import { IserviceResponce } from 'src/core/interface/ServiceResponce.interface';
+import { UserLoginDTO } from 'src/core/interface/DTO/UserSesion.DTO';
+import { AuthService } from './auth.service';
+import { AccessTokenDTO } from 'src/core/interface/DTO/AccessToken.out';
+import { Public } from './auth.guard';
 
 @ApiTags('auth')
 @Controller('v1/auth')
 export class AuthController {
-  @Post('/sing')
-  create(@Body() data: UserSingDTO): IserviceResponce<UserSingDTO> {
-    return {
-      message: 'Autenticacion creada con exito.',
-      status: true,
-      isError: false,
-      data,
-    };
-  }
-
+  constructor(private readonly service: AuthService) {}
+  @Public()
   @Post('/login')
-  login(@Body() data: UserLoginDTO): IserviceResponce<UserLoginDTO> {
-    return {
-      message: 'Autenticacion exitosa.',
-      status: true,
-      isError: false,
-      data,
-    };
+  login(@Body() data: UserLoginDTO): Promise<AccessTokenDTO> {
+    return this.service.singIn(data.email, data.password);
   }
 }

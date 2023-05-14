@@ -93,6 +93,28 @@ export class UsersService {
     });
   }
 
+  async findOneEmail(email: string): Promise<UserResponse> {
+    const item = await this._context.userRepo.findOne({
+      where: {
+        email,
+      },
+      include: [{ all: true, nested: true }],
+      mapToModel: true,
+    });
+    const rolType = item.auth.rolType;
+
+    return usersMapper({
+      id: item.id,
+      firstName: item.firstName,
+      lastName: item.lastName,
+      email: item.email,
+      isActive: item.isActive,
+      rolType: rolType,
+      updateAt: item.updatedAt,
+      createdAt: item.createdAt,
+    });
+  }
+
   async remove(id: string): Promise<void> {
     const userDelete = await this._context.userRepo.findOne({
       where: {

@@ -13,11 +13,6 @@ export class AppController {
     private health: HealthCheckService,
     private http: HttpHealthIndicator,
   ) {}
-
-  @Get()
-  getHello(): string {
-    return this.appService.getHello();
-  }
   @Get('health')
   @HealthCheck()
   check() {

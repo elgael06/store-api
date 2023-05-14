@@ -9,11 +9,16 @@ import { AuthModule } from 'src/domains/auth/auth.module';
 import { UsersModule } from 'src/domains/users/users.module';
 // database
 import { SequelizeConfModule } from 'src/data/Sequelize.config';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     SequelizeConfModule,
+    JwtModule.register({
+      global: true,
+      secret: process.env.AUTH_SECRET,
+    }),
     AuthModule,
     UsersModule,
     TerminusModule,
