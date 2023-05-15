@@ -1,32 +1,43 @@
 import { Module } from '@nestjs/common';
-import { AppService } from './app.service';
+import { JwtModule } from '@nestjs/jwt';
 import { HttpModule } from '@nestjs/axios';
 import { ConfigModule } from '@nestjs/config';
 import { TerminusModule } from '@nestjs/terminus';
-// modules
-import { AppController } from './app.controller';
-import { AuthModule } from 'src/domains/auth/auth.module';
-import { UsersModule } from 'src/domains/users/users.module';
+// services
+import { AppService } from './app.service';
 // database
 import { SequelizeConfModule } from 'src/data/Sequelize.config';
-import { JwtModule } from '@nestjs/jwt';
+// modules
+import { AppController } from './app.controller';
+import { StoresModule } from '../stores/stores.module';
+import { AuthModule } from 'src/domains/auth/auth.module';
+import { UsersModule } from 'src/domains/users/users.module';
+import { CategoriesModule } from '../categories/categories.module';
+import { SotreSalesModule } from '../sotre-sales/sotre-sales.module';
+import { InventoriesModule } from '../inventories/inventories.module';
 
 @Module({
   imports: [
-    ConfigModule.forRoot(),
+    HttpModule,
+    TerminusModule,
     SequelizeConfModule,
     JwtModule.register({
       global: true,
       secret: process.env.AUTH_SECRET,
       signOptions: { expiresIn: '60m' },
     }),
-    HttpModule,
+    ConfigModule.forRoot(),
+    // businesses
+    StoresModule,
+    CategoriesModule,
+    SotreSalesModule,
+    InventoriesModule,
+    // security.
     AuthModule,
     UsersModule,
-    TerminusModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
   exports: [],
+  providers: [AppService],
+  controllers: [AppController],
 })
 export class AppModule {}

@@ -1,24 +1,13 @@
-import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-import { UsersService } from './users.service';
-import { UserCrearteDTO } from 'src/core/interface/DTO/UserCrearte.DTO';
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
-import { AuthGuard } from 'src/core/guards/auth.guard';
-import { Roles } from 'src/core/util/roles.decorator';
 import { Role } from 'src/core/enum/Role';
-import { RolesGuard } from 'src/core/guards/roles.guard';
+import { UsersService } from './users.service';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import { Auth } from 'src/core/decorators/auth.decorator';
+import { UserCrearteDTO } from 'src/core/interface/DTO/UserCrearte.DTO';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 
 @ApiTags('users')
-@Controller('v1/users')
 @ApiBearerAuth()
+@Controller('v1/users')
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
