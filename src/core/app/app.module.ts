@@ -9,12 +9,12 @@ import { AppService } from './app.service';
 import { SequelizeConfModule } from 'src/data/Sequelize.config';
 // modules
 import { AppController } from './app.controller';
-import { SalesModule } from '../sales/sales.module';
-import { StoresModule } from '../stores/stores.module';
-import { AuthModule } from 'src/domains/auth/auth.module';
+import { AuthModule } from 'src/core/auth/auth.module';
 import { UsersModule } from 'src/domains/users/users.module';
-import { CategoriesModule } from '../categories/categories.module';
-import { InventoriesModule } from '../inventories/inventories.module';
+import { SalesModule } from '../../domains/sales/sales.module';
+import { StoresModule } from '../../domains/stores/stores.module';
+import { CategoriesModule } from '../../domains/categories/categories.module';
+import { InventoriesModule } from '../../domains/inventories/inventories.module';
 
 @Module({
   imports: [
