@@ -10,11 +10,11 @@ import { SequelizeConfModule } from 'src/data/Sequelize.config';
 // modules
 import { AppController } from './app.controller';
 import { AuthModule } from 'src/core/auth/auth.module';
-import { UsersModule } from 'src/domains/users/users.module';
-import { SalesModule } from '../../domains/sales/sales.module';
-import { StoresModule } from '../../domains/stores/stores.module';
-import { CategoriesModule } from '../../domains/categories/categories.module';
-import { InventoriesModule } from '../../domains/inventories/inventories.module';
+import { UsersModule } from 'src/modules/users/users.module';
+import { SalesModule } from '../../modules/sales/sales.module';
+import { StoresModule } from '../../modules/stores/stores.module';
+import { CategoriesModule } from '../../modules/categories/categories.module';
+import { InventoriesModule } from '../../modules/inventories/inventories.module';
 
 @Module({
   imports: [
