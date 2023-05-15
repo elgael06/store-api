@@ -14,6 +14,7 @@ import { AuthGuard } from 'src/core/guards/auth.guard';
 import { Roles } from 'src/core/util/roles.decorator';
 import { Role } from 'src/core/enum/Role';
 import { RolesGuard } from 'src/core/guards/roles.guard';
+import { Auth } from 'src/core/decorators/auth.decorator';
 
 @ApiTags('users')
 @Controller('v1/users')
@@ -22,8 +23,7 @@ export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @Post('create')
-  @Roles(Role.Admin)
-  @UseGuards(AuthGuard, RolesGuard)
+  @Auth(Role.Admin)
   async create(@Body() data: UserCrearteDTO) {
     try {
       return await this.userService.create(data);
@@ -36,8 +36,7 @@ export class UsersController {
   }
 
   @Get()
-  @Roles(Role.Admin, Role.User)
-  @UseGuards(AuthGuard, RolesGuard)
+  @Auth(Role.Admin, Role.User)
   async findAll() {
     try {
       return await this.userService.findAll();
@@ -51,8 +50,7 @@ export class UsersController {
   }
 
   @Get(':id')
-  @Roles(Role.Admin, Role.User)
-  @UseGuards(AuthGuard, RolesGuard)
+  @Auth(Role.Admin, Role.User)
   async findId(@Param('id') id: string) {
     try {
       return await this.userService.findOne(id);
@@ -66,8 +64,7 @@ export class UsersController {
   }
 
   @Delete(':id')
-  @Roles(Role.Admin)
-  @UseGuards(AuthGuard, RolesGuard)
+  @Auth(Role.Admin)
   async deleteId(@Param('id') id: string) {
     try {
       await this.userService.remove(id);
