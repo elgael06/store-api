@@ -4,7 +4,6 @@ import { Sequelize } from 'sequelize-typescript';
 import { checkEncripting } from 'src/core/util/createCripto';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { AccessTokenDTO } from 'src/core/interface/DTO/AccessToken.out';
-import { usersMapper } from 'src/core/util/usersMapper';
 
 @Injectable()
 export class AuthService {
@@ -33,27 +32,9 @@ export class AuthService {
       username: user.firstName,
       sub: user.id,
       type: auth.rolType,
-      user: usersMapper({
-        ...user,
-        id: user?.id,
-        email: user?.email,
-        userName: user?.firstName,
-        lastName: user?.lastName,
-        rolType: auth.rolType,
-        isActive: user?.isActive,
-      }),
     };
     return {
       access_token: await this.jwtService.signAsync(payload),
-      user: usersMapper({
-        ...user,
-        id: user?.id,
-        email: user?.email,
-        userName: user?.firstName,
-        lastName: user?.lastName,
-        rolType: auth.rolType,
-        isActive: user?.isActive,
-      }),
     };
   }
 }

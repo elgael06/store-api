@@ -22,6 +22,8 @@ export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
   @Post('create')
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   async create(@Body() data: UserCrearteDTO) {
     try {
       return await this.userService.create(data);
@@ -33,9 +35,9 @@ export class UsersController {
     }
   }
 
-  @Roles(Role.Admin)
-  @UseGuards(AuthGuard, RolesGuard)
   @Get()
+  @Roles(Role.Admin, Role.User)
+  @UseGuards(AuthGuard, RolesGuard)
   async findAll() {
     try {
       return await this.userService.findAll();
@@ -49,6 +51,8 @@ export class UsersController {
   }
 
   @Get(':id')
+  @Roles(Role.Admin, Role.User)
+  @UseGuards(AuthGuard, RolesGuard)
   async findId(@Param('id') id: string) {
     try {
       return await this.userService.findOne(id);
@@ -62,6 +66,8 @@ export class UsersController {
   }
 
   @Delete(':id')
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   async deleteId(@Param('id') id: string) {
     try {
       await this.userService.remove(id);
