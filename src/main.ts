@@ -9,7 +9,9 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('STORE API')
-    .setDescription('Store api description')
+    .setDescription(
+      'Esta es la documentacion del api donde podremos utilizar la logica de negicio mediante una autenticacion y roles de usuarios.',
+    )
     .setVersion('1.0')
     .addTag('users')
     .addTag('auth')
@@ -17,7 +19,7 @@ async function bootstrap() {
     .addTag('user')
     .build();
   const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  SwaggerModule.setup('', app, document);
 
   await app.listen(PORT, () => {
     console.log('listening in port', PORT);

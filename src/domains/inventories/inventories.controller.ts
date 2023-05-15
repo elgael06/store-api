@@ -16,7 +16,7 @@ import { Role } from 'src/core/enum/Role';
 
 @ApiTags('inventories')
 @ApiBearerAuth()
-@Controller('inventories')
+@Controller('v1/inventories')
 export class InventoriesController {
   constructor(private readonly inventoriesService: InventoriesService) {}
 

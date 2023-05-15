@@ -18,8 +18,8 @@ $ yarn run start:dev
 $ yarn run start:prod
 ```
 
-## show the swager api uri:
-http://localhost:8080/api/
+## show the swager api Documentation:
+http://localhost:8080/
 
 ## Test
 
@@ -33,3 +33,13 @@ $ yarn run test:e2e
 # test coverage
 $ yarn run test:cov
 ```
+
+## Modules domains
+auth:
+  - check create user login.
+User:
+  - create users.
+  - show users.
+  - Delete User.
+Categories:
+  - categories of products.

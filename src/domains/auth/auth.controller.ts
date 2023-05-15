@@ -10,7 +10,7 @@ import { Public } from 'src/core/guards/auth.guard';
 export class AuthController {
   constructor(private readonly service: AuthService) {}
   @Public()
-  @Post('/login')
+  @Post()
   login(@Body() data: UserLoginDTO): Promise<AccessTokenDTO> {
     return this.service.singIn(data.email, data.password);
   }

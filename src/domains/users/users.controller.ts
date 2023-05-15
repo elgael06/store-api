@@ -11,7 +11,7 @@ import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
-  @Post('create')
+  @Post()
   @Auth(Role.Admin)
   async create(@Body() data: UserCrearteDTO) {
     try {

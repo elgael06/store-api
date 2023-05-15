@@ -9,11 +9,11 @@ import { AppService } from './app.service';
 import { SequelizeConfModule } from 'src/data/Sequelize.config';
 // modules
 import { AppController } from './app.controller';
+import { SalesModule } from '../sales/sales.module';
 import { StoresModule } from '../stores/stores.module';
 import { AuthModule } from 'src/domains/auth/auth.module';
 import { UsersModule } from 'src/domains/users/users.module';
 import { CategoriesModule } from '../categories/categories.module';
-import { SotreSalesModule } from '../sotre-sales/sotre-sales.module';
 import { InventoriesModule } from '../inventories/inventories.module';
 
 @Module({
@@ -30,7 +30,7 @@ import { InventoriesModule } from '../inventories/inventories.module';
     // businesses
     StoresModule,
     CategoriesModule,
-    SotreSalesModule,
+    SalesModule,
     InventoriesModule,
     // security.
     AuthModule,
