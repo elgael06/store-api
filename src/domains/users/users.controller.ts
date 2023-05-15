@@ -10,12 +10,14 @@ import {
   Post,
   UseGuards,
 } from '@nestjs/common';
-import { AuthGuard } from '../auth/auth.guard';
+import { AuthGuard } from 'src/core/guards/auth.guard';
+import { Roles } from 'src/core/util/roles.decorator';
+import { Role } from 'src/core/enum/Role';
+import { RolesGuard } from 'src/core/guards/roles.guard';
 
 @ApiTags('users')
 @Controller('v1/users')
 @ApiBearerAuth()
-@UseGuards(AuthGuard)
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
@@ -31,6 +33,8 @@ export class UsersController {
     }
   }
 
+  @Roles(Role.Admin)
+  @UseGuards(AuthGuard, RolesGuard)
   @Get()
   async findAll() {
     try {
