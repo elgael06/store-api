@@ -6,10 +6,12 @@ import {
   IsUUID,
   Model,
   PrimaryKey,
+  Table,
 } from 'sequelize-typescript';
 import { Store } from './store.entity';
 import { Product } from './product.entity';
 
+@Table
 export class Sale extends Model {
   @IsUUID(4)
   @PrimaryKey

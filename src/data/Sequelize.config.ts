@@ -1,8 +1,6 @@
-import { SequelizeModule } from '@nestjs/sequelize';
 import { Module } from '@nestjs/common';
-import { Users } from './models/users.entity';
 import { ConfigModule } from '@nestjs/config';
-import { Auth } from './models/auth.entity';
+import { SequelizeModule } from '@nestjs/sequelize';
 
 @Module({
   imports: [
@@ -14,7 +12,7 @@ import { Auth } from './models/auth.entity';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD,
       database: process.env.DB_DATABASE,
-      models: [Users, Auth], //'./**/**.entity{.ts,.js}'
+      models: ['./models/**.entity{.ts,.js}'], //'./**/**.entity{.ts,.js}'
       autoLoadModels: true,
       synchronize: true,
       repositoryMode: true,

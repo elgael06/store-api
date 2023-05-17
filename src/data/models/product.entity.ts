@@ -5,9 +5,11 @@ import {
   IsUUID,
   Model,
   PrimaryKey,
+  Table,
 } from 'sequelize-typescript';
 import { Category } from './category.entity';
 
+@Table
 export class Product extends Model {
   @IsUUID(4)
   @PrimaryKey
@@ -37,6 +39,7 @@ export class Product extends Model {
   codes: string[];
 }
 
+@Table
 export class BarCode extends Model {
   @IsUUID(4)
   @PrimaryKey

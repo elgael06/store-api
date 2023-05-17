@@ -4,9 +4,11 @@ import {
   IsUUID,
   Model,
   PrimaryKey,
+  Table,
 } from 'sequelize-typescript';
 import { Sale } from './sale.entity';
 
+@Table
 export class Store extends Model {
   @IsUUID(4)
   @PrimaryKey
