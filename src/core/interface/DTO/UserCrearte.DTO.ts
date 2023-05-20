@@ -2,7 +2,7 @@ import { ApiProperty } from '@nestjs/swagger';
 import { Role } from 'src/core/enum/Role';
 
 export class UserCrearteDTO {
-  @ApiProperty({ required: true })
+  @ApiProperty({ required: false })
   id?: string;
   @ApiProperty({ required: true })
   userName: string;
